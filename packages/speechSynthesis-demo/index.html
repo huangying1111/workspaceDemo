@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@17/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+    ></script>
+
+    <script
+      crossorigin
+      src="https://unpkg.com/antd@4.17.0/dist/antd.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/antd@4.17.0/dist/antd.min.css"
+    />
+  </head>
+  <body>
+    <div>
+      <div id="root"></div>
+    </div>
+
+    <script src="./js.js"></script>
+
+    <script>
+      const speaker = new Speaker({ text: '请孙亭婷到五诊室就诊' })
+      setTimeout(() => {
+        speaker.start()
+      }, 1000) // 一秒钟之后暂停，根据实际情况来
+      setTimeout(() => {
+        speaker.start()
+      }, 5000) // 一秒钟之后暂停，根据实际情况来
+      setTimeout(() => {
+        speaker.start()
+      }, 10000) // 一秒钟之后暂停，根据实际情况来
+
+      ReactDOM.render(
+        React.createElement(MyLib),
+        document.getElementById('root')
+      )
+    </script>
+  </body>
+</html>

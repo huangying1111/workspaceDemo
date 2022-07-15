@@ -1,0 +1,23 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 info pnpm": {
+    "err": {
+      "name": "Error",
+      "message": "not found: create-react-app",
+      "code": "ENOENT",
+      "stack": "Error: not found: create-react-app\n    at getNotFoundError (/usr/local/Cellar/pnpm/6.32.9/libexec/lib/node_modules/pnpm/dist/pnpm.cjs:41689:51)\n    at Function.whichSync [as sync] (/usr/local/Cellar/pnpm/6.32.9/libexec/lib/node_modules/pnpm/dist/pnpm.cjs:41766:13)\n    at getCommandAbsolutePathSync (/usr/local/Cellar/pnpm/6.32.9/libexec/lib/node_modules/pnpm/dist/pnpm.cjs:43331:44)\n    at default_1 (/usr/local/Cellar/pnpm/6.32.9/libexec/lib/node_modules/pnpm/dist/pnpm.cjs:43340:32)\n    at /usr/local/Cellar/pnpm/6.32.9/libexec/lib/node_modules/pnpm/dist/pnpm.cjs:178600:39"
+    }
+  },
+  "2 error pnpm": {
+    "code": "ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL",
+    "prefix": "/Users/admin/Documents/code/demo",
+    "err": {
+      "name": "pnpm",
+      "message": "not found: create-react-app",
+      "code": "ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL",
+      "stack": "Error: not found: create-react-app\n    at getNotFoundError (/usr/local/Cellar/pnpm/6.32.9/libexec/lib/node_modules/pnpm/dist/pnpm.cjs:41689:51)\n    at Function.whichSync [as sync] (/usr/local/Cellar/pnpm/6.32.9/libexec/lib/node_modules/pnpm/dist/pnpm.cjs:41766:13)\n    at getCommandAbsolutePathSync (/usr/local/Cellar/pnpm/6.32.9/libexec/lib/node_modules/pnpm/dist/pnpm.cjs:43331:44)\n    at default_1 (/usr/local/Cellar/pnpm/6.32.9/libexec/lib/node_modules/pnpm/dist/pnpm.cjs:43340:32)\n    at /usr/local/Cellar/pnpm/6.32.9/libexec/lib/node_modules/pnpm/dist/pnpm.cjs:178600:39"
+    }
+  }
+}
