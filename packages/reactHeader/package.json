@@ -1,0 +1,11 @@
+{
+  "name": "react_header",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Header.jsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "hyyyyyyy",
+  "license": "ISC"
+}

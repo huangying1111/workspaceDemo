@@ -1,7 +1,6 @@
-import './App.css'
 import React from 'react'
 import Footer from './Footer'
-import Header from 'hy-react-demo/src/Header'
+import Header from 'header'
 function App() {
   return (
     <div className="App">
