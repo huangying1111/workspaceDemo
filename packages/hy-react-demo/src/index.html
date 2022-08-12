@@ -5,11 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>React</title>
-  </head>
-  <body>
-    <div id="like_button_container_js"></div>
-    <div id="like_button_container_jsx"></div>
-
     <script
       src="https://unpkg.com/react@18/umd/react.development.js"
       crossorigin
@@ -18,9 +13,20 @@
       src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
       crossorigin
     ></script>
-    <script src="like_button_js.js"></script>
-
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="like_button_container_js"></div>
+    <div id="like_button_container_jsx"></div>
+    <div id="div"></div>
+
+    <script src="like_button_js.js"></script>
     <script src="like_button_jsx.jsx" type="text/babel"></script>
+    <script type="text/babel">
+      const A = <div>1111</div>
+      console.log(A)
+      const doc = document.querySelector('#div')
+      ReactDOM.createRoot(doc).render(A)
+    </script>
   </body>
 </html>
