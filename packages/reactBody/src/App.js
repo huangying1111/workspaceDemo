@@ -3,6 +3,9 @@ import Footer from './Footer'
 import Header from 'header'
 import UesEffectPage from './Page/UesEffectPage'
 import ReducerPage from './Page/ReducerPage'
+import Context from './Page/Context'
+import Ref from './Page/Ref'
+import Hoc from './Page/Hoc'
 
 function App() {
   return (
@@ -11,6 +14,9 @@ function App() {
       <div>body</div>
       <UesEffectPage />
       <ReducerPage />
+      <Context />
+      <Ref />
+      <Hoc />
       <Footer />
     </div>
   )
