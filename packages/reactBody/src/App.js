@@ -1,5 +1,5 @@
-import React from 'react'
-import Footer from './Footer'
+import React, { createRef, useRef } from 'react'
+import Model from './Page/Model'
 import Header from 'header'
 import UesEffectPage from './Page/UesEffectPage'
 import ReducerPage from './Page/ReducerPage'
@@ -9,7 +9,7 @@ import Hoc from './Page/Hoc'
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" id="app">
       <Header />
       <div>body</div>
       <UesEffectPage />
@@ -17,7 +17,11 @@ function App() {
       <Context />
       <Ref />
       <Hoc />
-      <Footer />
+      {
+        // Portals
+      }
+      <Model />
+      <div>footer</div>
     </div>
   )
 }
