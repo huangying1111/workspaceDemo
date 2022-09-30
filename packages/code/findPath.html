@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>findPath</title>
+  </head>
+  <body>
+    findPath
+  </body>
+  <script>
+    // 给定一个对象 {a:{b:{c:123}}} 和一个字符串 'a.b.c' 通过这个字符串查找对象的值
+
+    const fn = (obj, string) => {
+      let arr = string.split('.')
+      let newObj = Object.assign({}, obj)
+      while (arr.length > 0) {
+        const item = arr.shift()
+        newObj = newObj[item]
+      }
+      return newObj
+    }
+    // const fn = (obj, string) => {
+    //   const arr = {}
+    //   let newObj = Object.assign({}, obj)
+    //   let key = ''
+    //   while (Object.keys(newObj).length != []) {
+    //     for (const item in newObj) {
+    //       arr[`${key}${item}`] = newObj[item]
+    //       key = `${key}${item}.`
+    //       newObj = newObj[item]
+    //     }
+    //   }
+    //   return arr[string]
+    // }
+
+    const obj = { e: { f: { g: 567 } } }
+    const str = 'e.f.g'
+    console.log(fn(obj, str), obj)
+  </script>
+</html>
