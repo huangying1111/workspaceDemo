@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MapParseInt</title>
+  </head>
+  <body>
+    MapParseInt
+    <input type="button" value="防抖" id="button1" />
+    <input type="button" value="节流" id="button2" />
+    <input type="button" value="执行一次" id="button3" />
+  </body>
+  <script>
+    // Array<string>.map<number>(callbackfn: (value: string, index: number, array: string[]) => number, thisArg?: any): number[]
+    // function parseInt(string: string, radix?: number): number
+    // [1, NaN, 2, 3]
+    // radix:0 10进制 1 2 3
+    console.log(['1', '2', '10', '10'].map(parseInt))
+
+    // 防抖：触发高频事件后 n 秒后函数只会执行一次，如果 n 秒内高频事件再 次被触发，则重新计算时间
+    function debounce(fn, delay) {
+      let timeout = null
+      return function () {
+        clearTimeout(timeout)
+        timeout = setTimeout(() => {
+          fn.apply(this, arguments)
+        }, delay)
+      }
+    }
+
+    document.getElementById('button1').addEventListener(
+      'click',
+      debounce(() => onClick('防抖'), 1000)
+    )
+    // 节流 高频事件触发，但在 n 秒内只会执行一次，所以节流会稀释函数的执行频率
+    const throttle = (fn, delay) => {
+      let canRun = true
+      return function () {
+        if (!canRun) return
+        canRun = false
+        setTimeout(() => {
+          fn.apply(this, arguments)
+          canRun = true
+        }, delay)
+      }
+    }
+    document.getElementById('button2').addEventListener(
+      'click',
+      throttle(() => onClick('节流'), 1000)
+    )
+    //  只执行一次
+    const runOne = (fn) => {
+      let canRun = true
+      return function () {
+        if (!canRun) return
+        canRun = false
+        fn.apply(this, arguments)
+      }
+    }
+    document.getElementById('button3').addEventListener(
+      'click',
+      runOne(() => onClick('只执行一次'))
+    )
+    // 闭包
+  </script>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>reduce</title>
+    <style>
+      input {
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <input type="button" value="没有初始值" id="button1" />
+      <input type="button" value="有初始值" id="button" />
+      <input type="button" value="改变数组元素值" id="button2" />
+      <input type="button" value="新增数据元素" id="button3" />
+      <input type="button" value="删除数组元素" id="button4" />
+      <input type="button" value="数组为空" id="button5" />
+      <input type="button" value="数组对象转对象" id="button6" />
+      <input type="button" value="数组去重" id="button7" />
+      <input type="button" value="替换.filter().map()" id="button8" />
+      <input type="button" value="按顺序组合函数" id="button9" />
+      <input type="button" value="异步组合函数" id="button10" />
+      <input type="button" value="对比执行时间" id="button11" />
+      <input type="button" value="改造函数" id="button12" />
+    </div>
+  </body>
+  <script>
+    // 没有初始值的时候，currentIndex从1开始，循环1次
+    const onClick1 = () => {
+      const res1 = [1, 2].reduce(
+        (previousValue, currentValue, currentIndex, array) => {
+          // 0 1次
+          console.log(`currentIndex: ${currentIndex}`)
+          return previousValue + currentValue
+        }
+      )
+      // 3
+      console.log(res1)
+      const a = [1, 2, 3]?.map((item) => {
+        if (item == 1) {
+          return item
+        }
+      })
+      console.log(a)
+    }
+    // 有初始值的时候，currentIndex从0开始，循环2次
+    const onClick = () => {
+      const res2 = [1, 2].reduce(
+        (previousValue, currentValue, currentIndex, array) => {
+          // 0/1 2次
+          console.log(`currentIndex: ${currentIndex}`)
+          return previousValue + currentValue
+        },
+        0
+      )
+      // 3
+      console.log(res2)
+    }
+    const onClick2 = () => {
+      // 没有初始值的时候，currentIndex从1开始，只能改变index 2以后的数据
+      const res1 = [1, 2, 3].reduce(
+        (previousValue, currentValue, currentIndex, array) => {
+          array[1] = 100 // ❌
+          array[2] = 50 // ☑️
+          return previousValue + currentValue
+        }
+      )
+
+      const arr = [1, 2, 3]
+      // 有初始值的时候，currentIndex从0开始，只能改变index 1以后的数据
+      const res2 = arr.reduce(
+        (previousValue, currentValue, currentIndex, array) => {
+          array[1] = 100 // ☑️
+          array[2] = 50 // ☑️
+          return previousValue + currentValue
+        },
+        0
+      )
+      // [1, 100, 50], 53, 151
+      console.log(arr, res1, res2)
+    }
+    // 改变数据长度无法被遍历到
+    const onClick3 = () => {
+      const arr = [1, 2, 3]
+      const res = arr.reduce(
+        (previousValue, currentValue, currentIndex, array) => {
+          if (currentIndex == 0) {
+            array.push(100)
+          }
+          // 0 1 2  循环三次
+          console.log(`currentIndex: ${currentIndex}`)
+          return previousValue + currentValue
+        },
+        0
+      )
+      // [1, 2, 3, 100] 6
+      console.log(arr, res)
+    }
+
+    // 可以删除元素
+    const onClick4 = () => {
+      const arr = [1, 2, 3, 4, 5]
+      const res = arr.reduce(
+        (previousValue, currentValue, currentIndex, array) => {
+          if (currentIndex == 0) {
+            array.pop()
+          }
+          // 0 1 2 3 循环四次
+          console.log(` currentIndex: ${currentIndex}`)
+          return previousValue + currentValue
+        },
+        0
+      )
+      // [1, 2, 3, 4] 10
+      console.log(arr, res)
+    }
+    // 数组为空时 没有initialValue 时会报错 TypeError
+    const onClick5 = () => {
+      const arr = []
+      const res = arr.reduce(
+        (previousValue, currentValue, currentIndex, array) => {
+          return previousValue + currentValue
+        }
+      )
+      console.log(arr, res)
+    }
+    // 处理数据 从数组变成对象
+    const onClick6 = () => {
+      const arr = [
+        { code: 'a', value: '1' },
+        { code: 'b', value: '2' },
+        { code: 'c', value: '3' },
+      ]
+      const res = arr.reduce(
+        (previousValue, currentValue, currentIndex, array) => {
+          previousValue[currentValue.code] = currentValue.value
+          return previousValue
+        },
+        {}
+      )
+      // {a: '1', b: '2', c: '3'}
+      console.log(res)
+    }
+    // 去重
+    const onClick7 = () => {
+      const arr = [1, 2, 2, 5, 6, 7, 5, 1]
+      const res = arr.reduce(
+        (previousValue, currentValue, currentIndex, array) => {
+          if (!previousValue.includes(currentValue)) {
+            previousValue.push(currentValue)
+          }
+          return previousValue
+        },
+        []
+      )
+      // [1, 2, 5, 6, 7]
+      console.log(res)
+    }
+    // 过滤show 并且组装成新的数据
+    const onClick8 = () => {
+      const arr = [
+        { code: 'a', value: 1, show: true },
+        { code: 'b', value: 2, show: false },
+        { code: 'c', value: 3, show: true },
+      ]
+      const res = arr.reduce(
+        (previousValue, currentValue, currentIndex, array) => {
+          if (currentValue?.show) {
+            previousValue.push({
+              ...currentValue,
+              value: currentValue.value * 2,
+            })
+          }
+          return previousValue
+        },
+        []
+      )
+      const res2 = arr
+        .filter((item) => item.show)
+        .map((item) => {
+          return { ...item, value: item.value * 2 }
+        })
+      // [{code: 'a', value: 2, show: true}, {code: 'c', value: 6, show: true}]
+      console.log(res, res2)
+    }
+    // 比如加减乘除计算, 复杂的数据可以更清晰地视线逻辑
+    const onClick9 = () => {
+      const plus = (v) => {
+        return v + 2
+      }
+      const sub = (v) => {
+        return v - 8
+      }
+      const mul = (v) => {
+        return v * 4
+      }
+      const div = (v) => {
+        return v / 2
+      }
+      const arr = [plus, sub, mul, div]
+      const computed = (value) =>
+        arr.reduce((previousValue, currentValue, currentIndex, array) => {
+          return currentValue(previousValue)
+        }, value)
+
+      console.log(computed(10), computed(18), computed(30))
+    }
+    // 比如改成后端异步修改某些数据
+    const onClick10 = async () => {
+      const plus = (v) => {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(v + 2)
+          }, 100)
+        })
+      }
+      const sub = (v) => {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(v - 8)
+          }, 1000)
+        })
+      }
+      const mul = (v) => {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(v * 4)
+          }, 100)
+        })
+      }
+      const div = (v) => {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(v / 2)
+          }, 100)
+        })
+      }
+
+      const arr = [plus, sub, mul, div]
+      const computed = async (value) => {
+        return arr.reduce(
+          async (previousValue, currentValue, currentIndex, array) => {
+            const res = await currentValue(await previousValue)
+            return res
+          },
+          Promise.resolve(value)
+        )
+      }
+      const button10 = document.getElementById('button10')
+      button10.disabled = true
+      const buttonValue = button10.value
+      button10.value = buttonValue + ' loading...'
+      const res = await computed(10)
+      const res1 = await computed(18)
+      const res2 = await computed(30)
+      button10.disabled = false
+      button10.value = buttonValue
+      console.log(res, res1, res2)
+    }
+    const onClick11 = () => {
+      // for
+      const arr = new Array(10000000).fill(0)
+      console.time('for')
+      let num1 = 0
+      for (let i = 0; i < arr.length; i++) {
+        num1 = num1 + i
+      }
+      console.timeEnd('for')
+
+      // forEach
+      console.time('forEach')
+      let num2 = 0
+      arr.forEach((e, i) => {
+        num2 = num2 + i
+      })
+      console.timeEnd('forEach')
+
+      // map
+      console.time('map')
+      let num3 = 0
+      arr.map((e, i) => {
+        num3 = num3 + i
+      })
+      console.timeEnd('map')
+
+      // reduce
+      console.time('reduce')
+      let num4 = arr.reduce((pre, current, i, arr) => {
+        return pre + i
+      }, 0)
+      console.timeEnd('reduce')
+      //   console.log(num1, num2, num3, num4)
+    }
+    const onClick12 = () => {
+      const dataSource = [
+        { list: [{ id: 'id1listId1' }, { id: 'id1listId2' }], id: 'id1' },
+        { list: [{ id: 'id2listId1' }, { id: '' }], id: 'id2' },
+        { list: [], id: 'id3' },
+        { list: [{ id: '' }, { id: '' }], id: 'id4' },
+      ]
+
+      // 模拟客户端某段代码
+      const res1 =
+        dataSource
+          ?.map((item) => {
+            const flag = item.list.find((its) => !its.id)
+            if (flag) {
+              return item
+            }
+          })
+          .map((item) => item?.id) || []
+
+      // 使用reduce重构
+      const res2 = dataSource.reduce((pre, current) => {
+        if (current.list.some((its) => !its.id)) {
+          pre.push(current.id)
+        }
+        return pre
+      }, [])
+      // [undefined, 'id2', undefined, 'id4']
+      // ['id2', 'id4']
+      console.log(res1, res2)
+    }
+    document.getElementById('button').addEventListener('click', onClick)
+    document.getElementById('button1').addEventListener('click', onClick1)
+    document.getElementById('button2').addEventListener('click', onClick2)
+    document.getElementById('button3').addEventListener('click', onClick3)
+    document.getElementById('button4').addEventListener('click', onClick4)
+    document.getElementById('button5').addEventListener('click', onClick5)
+    document.getElementById('button6').addEventListener('click', onClick6)
+    document.getElementById('button7').addEventListener('click', onClick7)
+    document.getElementById('button8').addEventListener('click', onClick8)
+    document.getElementById('button9').addEventListener('click', onClick9)
+    document.getElementById('button10').addEventListener('click', onClick10)
+    document.getElementById('button11').addEventListener('click', onClick11)
+    document.getElementById('button12').addEventListener('click', onClick12)
+  </script>
+</html>
